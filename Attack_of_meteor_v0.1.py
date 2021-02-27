@@ -84,9 +84,9 @@ def show_go_screen():
 
 def show_end_screen():
     screen.blit(background, background_rect)
-    draw_text(screen, "Атака метеоров 0.1", 64, WIDTH / 2, HEIGHT / 4)
+    draw_text(screen, "GAME OVER", 64, WIDTH / 2, HEIGHT / 4)
     draw_text(screen, f"ваш счет: {score}", 22, WIDTH / 2, HEIGHT / 2)
-    draw_text(screen, "Нажмите любую кнопку что бы начать", 18, WIDTH / 2, HEIGHT * 3 / 4)
+    draw_text(screen, "Нажмите любую кнопку что бы начать сначала", 18, WIDTH / 2, HEIGHT * 3 / 4)
     pygame.display.flip()
     waiting = True
     while waiting:
