@@ -13,6 +13,8 @@ HEIGHT = 600
 FPS = 60
 POWERUP_TIME = 5000
 
+score = 0
+
 
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
@@ -79,6 +81,21 @@ def show_go_screen():
             if event.type == pygame.KEYUP:
                 waiting = False
 
+
+def show_end_screen():
+    screen.blit(background, background_rect)
+    draw_text(screen, "Атака метеоров 0.1", 64, WIDTH / 2, HEIGHT / 4)
+    draw_text(screen, f"ваш счет: {score}", 22, WIDTH / 2, HEIGHT / 2)
+    draw_text(screen, "Нажмите любую кнопку что бы начать", 18, WIDTH / 2, HEIGHT * 3 / 4)
+    pygame.display.flip()
+    waiting = True
+    while waiting:
+        clock.tick(FPS)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+            if event.type == pygame.KEYUP:
+                waiting = False
 
 class Player(pygame.sprite.Sprite):
     def __init__(self):
@@ -297,14 +314,15 @@ player = Player()
 all_sprites.add(player)
 for i in range(8):
     newmob()
-score = 0
+
 pygame.mixer.music.play(loops=-1)
 
-game_over = True
+game_over = False
 running = True
+show_go_screen()
 while running:
     if game_over:
-        show_go_screen()
+        show_end_screen()
         game_over = False
         all_sprites = pygame.sprite.Group()
         mobs = pygame.sprite.Group()
@@ -315,6 +333,7 @@ while running:
         for i in range(8):
             newmob()
         score = 0
+
 
     clock.tick(FPS)
 
@@ -363,7 +382,7 @@ while running:
     if player.lives == 0 and not death_explosion.alive():
         game_over = True
 
-    # Рендеринг
+
     screen.fill(BLACK)
     screen.blit(background, background_rect)
     all_sprites.draw(screen)
